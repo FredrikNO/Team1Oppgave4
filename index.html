@@ -11,30 +11,77 @@
 <body>
 
     <div id="app"></div>
-
-    <img src="https://i.imgur.com/hLMTxDr.png" alt="papir">
-    <img src="https://i.imgur.com/mfDPoXR.png" alt="stein">
-    <img src="https://i.imgur.com/SsYhVCF.png" alt="saks">
+    <!-- <img src="Paper.png" alt=""> -->
 
     <script>
-
         //model
+        let pictureSelection = ['Paper.png', 'Rock.png', 'Scissors.png'];
+        let pSelect = '';
+        let siteChange = 0;
+        let comSelect = '';
+        let winningTxt;
 
 
         //view
-        show()
+        show();
         function show() {
-            let html=''; 
-            html=/*HTML*/ `
-            <h1> Stein, saks, papir spill. </h1>
-            `;
+            let html = '';
+            if (siteChange == 0) {
+                html = htmlSite1();
+            }
+            else html = htmlSite2();
             document.getElementById('app').innerHTML = html;
-
-            
+        }
+        function htmlSite1() {
+            let html = '';
+            html =/*HTML*/ `
+            <h1> Stein, saks, papir spill. </h1>
+           
+            `;
+            for (let i = 0; i < pictureSelection.length; i++) {
+                html += `<img src="${pictureSelection[i]}" onclick="gameFunc(${i})" alt="">`;
+            }
+            return html;
+        }
+        function htmlSite2() {
+            let html = '';
+            return `<img src="${pSelect}" alt=""> vs <img src="${comSelect}" alt=""> <br> <div>${winningTxt}</div>`
         }
 
         //controller
+        function gameFunc(index){
+            playerSelect(index);
+            let comSelect=computerSelect();
+            checkWinner(index,comSelect);
+            show()
+        }
 
+        function playerSelect(index) {
+            pSelect = pictureSelection[index];
+            siteChange = 1;
+        }
+        function computerSelect() {
+            let cSelect = null;
+            cSelect = Math.floor(Math.random() * pictureSelection.length);
+            comSelect = pictureSelection[cSelect];
+            return cSelect;
+        }
+        
+        function checkWinner(index,comSelect){
+            // Uavgjort
+            console.log(comSelect);
+            console.log(index);
+            if(comSelect === index){
+                winningTxt = 'Det ble uavgjort';
+            }  
+            // Win
+            else if (comSelect != index){
+                if((index == 0 && comSelect == 1)||(index ==1 && comSelect == 2) || (index == 2 && comSelect == 0)){
+                    winningTxt = 'Du vant';
+                }
+                else winningTxt = 'Computern vant';
+            }
+        }
 
     </script>
 </body>
