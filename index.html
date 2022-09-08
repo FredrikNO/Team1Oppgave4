@@ -20,6 +20,8 @@
         let siteChange = 0;
         let comSelect = '';
         let winningTxt;
+        let playerPoints = 0;
+        let computerPoints = 0;
 
 
         //view
@@ -45,14 +47,24 @@
         }
         function htmlSite2() {
             let html = '';
-            return `<img src="${pSelect}" alt=""> vs <img src="${comSelect}" alt=""> <br> <div>${winningTxt}</div>`
+            html = `
+            <h2>${winningTxt}</h2> <br>
+            <img src="${pSelect}" alt="">
+            vs
+            <img src="${comSelect}" alt=""> <br> 
+            
+            <button onclick="resetFunc()">Reset</button>
+            <h3>Spiller poeng: ${playerPoints}<br/>Computer poeng: ${computerPoints}</h3>`;
+
+            return html;
         }
 
         //controller
-        function gameFunc(index){
+        function gameFunc(index) {
             playerSelect(index);
-            let comSelect=computerSelect();
-            checkWinner(index,comSelect);
+            let cSelect = computerSelect();
+            console.log(cSelect);
+            checkWinner(index, cSelect);
             show()
         }
 
@@ -66,23 +78,29 @@
             comSelect = pictureSelection[cSelect];
             return cSelect;
         }
-        
-        function checkWinner(index,comSelect){
+
+        function checkWinner(index, comSelect) {
             // Uavgjort
-            console.log(comSelect);
-            console.log(index);
-            if(comSelect === index){
+            if (comSelect === index) {
                 winningTxt = 'Det ble uavgjort';
-            }  
+            }
             // Win
-            else if (comSelect != index){
-                if((index == 0 && comSelect == 1)||(index ==1 && comSelect == 2) || (index == 2 && comSelect == 0)){
+            else if (comSelect != index) {
+                if ((index == 0 && comSelect == 1) || (index == 1 && comSelect == 2) || (index == 2 && comSelect == 0)) {
                     winningTxt = 'Du vant';
+                    playerPoints++;
                 }
-                else winningTxt = 'Computern vant';
+                else {
+                    winningTxt = 'Computern vant';
+                    computerPoints++;
+                }
             }
         }
-        
+
+        function resetFunc() {
+            siteChange = 0;
+            show()
+        }
     </script>
 </body>
 
