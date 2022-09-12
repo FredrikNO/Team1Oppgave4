@@ -53,7 +53,7 @@
             vs
             <img src="${comSelect}" alt=""> <br> 
             
-            <button onclick="resetFunc()">Reset</button>
+            <button onclick="resetFunc()">Prøv igjen</button>
             <h3>Spiller poeng: ${playerPoints}<br/>Computer poeng: ${computerPoints}</h3>`;
 
             return html;
@@ -67,11 +67,12 @@
             checkWinner(index, cSelect);
             show()
         }
-
+        // Player velger stein, saks eller papir og går til neste side.
         function playerSelect(index) {
             pSelect = pictureSelection[index];
             siteChange = 1;
         }
+        // Pc velger stein, saks eller papir
         function computerSelect() {
             let cSelect = null;
             cSelect = Math.floor(Math.random() * pictureSelection.length);
@@ -96,7 +97,7 @@
                 }
             }
         }
-
+        // Gå tilbake til startskjermen
         function resetFunc() {
             siteChange = 0;
             show()
